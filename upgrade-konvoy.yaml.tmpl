@@ -1,0 +1,18 @@
+---
+Version: batch/v1
+kind: Job
+metadata:
+  generateName: Upgrade konvoy
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  template:
+    spec:
+      containers:
+      - name: upgrade-konvoy
+        image: busybox
+        command:
+          - "echo"
+          - "$({ .releaseUrl })"
+      restartPolicy: Never
+
