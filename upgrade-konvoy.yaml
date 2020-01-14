@@ -2,7 +2,7 @@
 # File generated from upgrade-konvoy.yaml.tmpl by the update-gitops-repo tool with arguments: /usr/bin/update-gitops-repo -git-revision=b1fc680436435fab6063a4a49090c6330e481f01 -substitute=releaseUrl=//ok//b1fc680436435fab6063a4a49090c6330e481f01//ok//
 
 ---
-Version: batch/v1
+apiVersion: batch/v1
 kind: Job
 metadata:
   generateName: Upgrade konvoy
