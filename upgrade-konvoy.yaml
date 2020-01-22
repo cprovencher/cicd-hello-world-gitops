@@ -1,0 +1,23 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: upgrade-konvoy
+spec:
+  template:
+    spec:
+      containers:
+      - name: upgrade-konvoyy
+        image: alpine/git
+        command:
+          - "/bin/bash"
+          - "echo"
+          - "$github_token"
+        env:
+          - name: github_token
+            valueFrom:
+              secretKeyRef:
+                name: download-konvoy
+                key: token
+      restartPolicy: Never
+
