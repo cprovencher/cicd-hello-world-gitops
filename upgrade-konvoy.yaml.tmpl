@@ -8,9 +8,10 @@ spec:
     spec:
       containers:
       - name: upgrade-konvoy
-        image: mesosphere/konvoy-upgrade-test
+        image: alpine/git
         command:
-          - "$({ .konvoyVersion })"
+          - "/bin/bash"
+          - "echo"
           - "$github_token"
         env:
           - name: github_token
