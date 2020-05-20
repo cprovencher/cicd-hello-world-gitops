@@ -1,23 +1,27 @@
----
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: upgrade-konvoy
+  generateName: app-slack-notification-
 spec:
   template:
     spec:
       containers:
-      - name: upgrade-konvoyy
-        image: alpine/git
-        command:
-          - "/bin/bash"
-          - "echo"
-          - "$github_token"
+      - name: slack-notification
+        image: curlimages/curl:7.69.1
+        args:
+          - '-X'
+          - 'POST'
+          - '-H'
+          - 'Content-type: application/json'
+          - '--data'
+          - '{"text":"Changes detected: https://github.com/mesosphere/konvoy-soak/commit/$({ .replaceThis })\nUpdate starting: https://konvoy-staging.production.d2iq.cloud/dispatch/argo-cd/applications/konvoy-soak"}'
+          - $(CPRO_SLACK_HOOK)
         env:
-          - name: github_token
+          - name: CPRO_SLACK_HOOK
             valueFrom:
               secretKeyRef:
-                name: download-konvoy
-                key: token
+                name: cprovencher-slack-hook
+                key: url
       restartPolicy: Never
+  backoffLimit: 0
 
